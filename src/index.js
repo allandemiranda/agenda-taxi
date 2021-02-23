@@ -10,4 +10,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.set('trust proxy', true);
 
+require('./controllers/home.controller')(app);
+
 app.listen(5000);
