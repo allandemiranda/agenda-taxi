@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/allandemiranda/agenda-taxi/issues"
   },
-  "homepage": "https://github.com/allandemiranda/agenda-taxi#readme"
+  "homepage": "https://github.com/allandemiranda/agenda-taxi#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
