@@ -5,26 +5,27 @@ const mongoose_autopopulate = require('mongoose-autopopulate');
 const ViagemSchema = new Schema({
   origem: {
     type: String,
-    required: true
+    required: true,
   },
   destino: {
     type: String,
-    required: true
+    required: true,
   },
   passageiro: {
     type: Schema.Types.ObjectId,
     ref: 'Passageiro',
     required: true,
-    autopopulate: true
+    autopopulate: true,
   },
   motorista: {
     type: Schema.Types.ObjectId,
     ref: 'Motorista',
-    autopopulate: true
+    autopopulate: true,
   },
   valor: {
-    type: Number
-  }
+    type: Number,
+    default: 0.00
+  },
 });
 
 ViagemSchema.plugin(mongoose_autopopulate);

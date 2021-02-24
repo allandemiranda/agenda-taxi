@@ -10,6 +10,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.set('trust proxy', true);
 
-require('./controllers/home.controller')(app);
+require('./controllers/motorista.controller')(app);
 
 app.listen(5000);
