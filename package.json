@@ -11,7 +11,11 @@
     "type": "git",
     "url": "git+https://allandemiranda@github.com/allandemiranda/agenda-taxi.git"
   },
-  "author": "Allan de Miranda Silva",
+  "author": {
+    "name": "Allan de Miranda Silva",
+    "email": "allandemiranda@gmail.com",
+    "url": "http://allandemiranda.eti.br/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/allandemiranda/agenda-taxi/issues"
@@ -22,10 +26,15 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsconfig.json": "0.1.0-beta.3",
     "mongoose-autopopulate": "^0.12.3",
     "nodemon": "^2.0.7"
   },
   "devDependencies": {
-    "typescript": "^4.1.3"
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "typescript": "^4.1.3",
+    "prettier": "^2.2.1"
   }
 }

@@ -4,19 +4,19 @@ const Schema = mongoose.Schema;
 const PassageiroSchema = new Schema({
   nome: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
     required: true,
     unique: true,
-    lowercase: true
+    lowercase: true,
   },
   marketing: {
     type: Boolean,
     default: true,
-    require: true
-  }
+    require: true,
+  },
 });
 
 const Passageiro = mongoose.model('Passageiro', PassageiroSchema);
