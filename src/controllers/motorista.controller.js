@@ -60,6 +60,7 @@ router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
         'Email enviado ao passageiro ' +
         viagem.passageiro.nome +
         ' e ao financeiro!',
+      viagem,
     });
   } catch (err) {
     return res.status(500).send({ error: err.message });

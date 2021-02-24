@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Passageiro = require('../models/passageiro.model');
 const Viagem = require('../models/viagem.model');
+const Motorista = require('../models/motorista.model');
 
 router.get('/passageiros/', async (req, res) => {
   try {
@@ -46,11 +47,15 @@ router.post('/passageiro/:id/viagem/', async (req, res) => {
 
     const viagem = await Viagem.create({ origem, destino, passageiro });
 
+    const motoristas = await Motorista.find();
+
     /**
      * Criar modulo para enviar email ao motoristas aqui !
      */
 
-    return res.status(201).send({ msg: 'Email enviado aos motoristas' });
+    return res
+      .status(201)
+      .send({ msg: 'Email enviado aos motoristas !', motoristas, viagem });
   } catch (err) {
     return res.status(500).send({ error: err.message });
   }
