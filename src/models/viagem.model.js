@@ -1,4 +1,4 @@
-const mongoose = require('../service/mongoDB.service');
+const mongoose = require('../services/mongoDB.service');
 const Schema = mongoose.Schema;
 const mongoose_autopopulate = require('mongoose-autopopulate');
 
