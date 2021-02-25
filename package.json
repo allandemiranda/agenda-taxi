@@ -29,6 +29,7 @@
     "jsconfig.json": "0.1.0-beta.3",
     "mongoose": "^5.11.18",
     "mongoose-autopopulate": "^0.12.3",
+    "nodemailer": "^6.4.18",
     "nodemon": "^2.0.7"
   },
   "devDependencies": {

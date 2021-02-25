@@ -1,4 +1,5 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 const router = express.Router();
 const Passageiro = require('../models/passageiro.model');
 const Viagem = require('../models/viagem.model');
@@ -49,13 +50,43 @@ router.post('/passageiro/:id/viagem/', async (req, res) => {
 
     const motoristas = await Motorista.find();
 
-    /**
-     * Criar modulo para enviar email ao motoristas aqui !
-     */
+    let testAccount = await nodemailer.createTestAccount();
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    });
 
-    return res
-      .status(201)
-      .send({ msg: 'Email enviado aos motoristas !', motoristas, viagem });
+    let email = {
+      from: process.env.EMAIL_APP,
+      to: '',
+      subject: 'Nova viagem disponível',
+      text:
+        'Nova viagem disponível de ' +
+        viagem.origem +
+        ' para ' +
+        viagem.destino,
+    };
+
+    let infos = [];
+
+    for (let i = 0; i < motoristas.length; ++i) {
+      email.to = motoristas[i].email;
+      let info = await transporter.sendMail(email);
+      infos.push(info.messageId);
+      console.log('Novo email: \n', email);
+    }
+
+    return res.status(201).send({
+      msg: 'Email enviado aos motoristas !',
+      motoristas,
+      viagem,
+      infos,
+    });
   } catch (err) {
     return res.status(500).send({ error: err.message });
   }

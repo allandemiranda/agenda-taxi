@@ -1,4 +1,5 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 const router = express.Router();
 const Motorista = require('../models/motorista.model');
 const Viagem = require('../models/viagem.model');
@@ -51,9 +52,29 @@ router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
     viagem.motorista = motorista;
     viagem = await viagem.save();
 
-    /**
-     * Criar modulo para enviar email ao passageiro e ao financeiro aqui !
-     */
+    const email = {
+      from: process.env.EMAIL_APP,
+      to: viagem.passageiro.email + ', ' + process.env.EMAIL_FINANCEIRO,
+      subject: 'Viagem aceita',
+      text:
+        'Viagem aceita pelo motorista' +
+        viagem.motorista.nome +
+        '. Por favor, pagar o valor de R$' +
+        viagem.valor,
+    };
+
+    let testAccount = await nodemailer.createTestAccount();
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    });
+
+    let info = await transporter.sendMail(email);
 
     return res.status(201).send({
       msg:
@@ -61,6 +82,7 @@ router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
         viagem.passageiro.nome +
         ' e ao financeiro!',
       viagem,
+      info: info.messageId,
     });
   } catch (err) {
     return res.status(500).send({ error: err.message });

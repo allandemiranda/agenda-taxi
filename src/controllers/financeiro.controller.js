@@ -1,4 +1,5 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 const router = express.Router();
 const Viagem = require('../models/viagem.model');
 
@@ -13,9 +14,46 @@ router.post('/financeiro/:id', async (req, res) => {
       return res.status(400).send({ error: 'Viagem sem motorista' });
     }
 
-    /**
-     * Criar modulo para enviar email ao motoristas e ao passageiro que houve o pagamento !
-     */
+    const emailMotorista = {
+      from: process.env.EMAIL_FINANCEIRO,
+      to: viagem.motorista.email,
+      subject: 'Pagamento recebido',
+      text:
+        'Pagamento de R$' +
+        viagem.valor +
+        'para a viagem do passageiro ' +
+        viagem.passageiro.nome +
+        ' recebido!',
+    };
+
+    const emailPassageiro = {
+      from: process.env.EMAIL_FINANCEIRO,
+      to: viagem.passageiro.email,
+      subject: 'Pagamento recebido',
+      text:
+        'Pagamento para a viagem de ' +
+        viagem.origem +
+        ' a ' +
+        viagem.destino +
+        ' recebido!',
+    };
+
+    let testAccount = await nodemailer.createTestAccount();
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    });
+
+    let infoMotorista = await transporter.sendMail(emailMotorista);
+    let infoPassageiro = await transporter.sendMail(emailPassageiro);
+
+    console.log('Novo email: \n', emailMotorista);
+    console.log('Novo email: \n', emailPassageiro);
 
     return res.status(201).send({
       msg:
@@ -24,6 +62,7 @@ router.post('/financeiro/:id', async (req, res) => {
         ' e ao motorista ' +
         viagem.motorista.nome +
         ' sobre a confirmação do pagamento !',
+      info: [infoPassageiro.messageId, infoMotorista.messageId],
       passageiro: viagem.passageiro,
       motorista: viagem.motorista,
     });
