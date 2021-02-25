@@ -24,6 +24,8 @@ router.post('/financeiro/:id', async (req, res) => {
         ' e ao motorista ' +
         viagem.motorista.nome +
         ' sobre a confirmação do pagamento !',
+      passageiro: viagem.passageiro,
+      motorista: viagem.motorista,
     });
   } catch (err) {
     return res.status(500).send({ error: err.message });
