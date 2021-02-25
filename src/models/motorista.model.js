@@ -1,4 +1,4 @@
-const mongoose = require('dataBase');
+const mongoose = require('../service/mongoDB.service');
 const Schema = mongoose.Schema;
 
 const MotoristaSchema = new Schema({

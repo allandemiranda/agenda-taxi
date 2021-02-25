@@ -1,4 +1,4 @@
-const mongoose = require('dataBase');
+const mongoose = require('../service/mongoDB.service');
 const Schema = mongoose.Schema;
 const mongoose_autopopulate = require('mongoose-autopopulate');
 
@@ -24,7 +24,7 @@ const ViagemSchema = new Schema({
   },
   valor: {
     type: Number,
-    default: 0.00
+    default: 0.0,
   },
 });
 
