@@ -1,6 +1,6 @@
 # Projeto WEB II - Agenda Taxi
 
-Seviço de gerenciamento de email do aplicativo de Agenda Taxi
+Seviço de gerenciamento de email do aplicativo Agenda Taxi
 
 Desenvolvido  por   [Allan de Miranda](https://github.com/allandemiranda)
 
