@@ -1,0 +1,426 @@
+openapi: '3.0.3'
+info:
+  version: '1.0.0'
+  title: 'Agenda Taxi'
+  contact:
+    email: 'allandemiranda@gmail.com'
+servers:
+  - url: https://localhost:5000/v1
+tags:
+  - name: 'Motorista'
+    description: 'Motorista do aplicativo'
+  - name: 'Passageiro'
+    description: 'Passageiro do aplicativo'
+  - name: 'Viagem'
+    description: 'Viagens do aplicativo'
+  - name: 'Financeiro'
+    description: 'Financeiro do aplicativo'
+  - name: 'Marketing'
+    description: 'Marketing do aplicativo'
+paths:
+  # Financeiro
+  /financeiro/{id_viagem}:
+    post:
+      tags:
+        - 'Financeiro'
+      summary: 'Financeiro Email'
+      description: 'Gerar email de pagamento confirmado para viagem'
+      parameters:
+        - name: id_viagem
+          in: path
+          required: true
+          description: Id da Viagem
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: 'string'
+                    description: 'Mensagem do sistema'
+                  infos:
+                    type: 'array'
+                    description: 'Informações dos emails enviados'
+                  passageiro:
+                    $ref: '#/components/schemas/Passageiro'
+                    description: 'Passageiro que foi enviado o email'
+                  motorista:
+                    $ref: '#/components/schemas/Motorista'
+                    description: 'Motorista que foi enviado o email'
+        '500':
+          description: 'Server error'
+        default:
+          description: 'Unexpected error'
+  # Marketing
+  /marketing:
+    post:
+      tags:
+        - 'Marketing'
+      summary: 'Marketing Email'
+      description:
+        'Gerar email informativo para os usuários do aplicativo que desejam
+        receber informaões do marketing'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  msg:
+                    type: 'string'
+                    description: 'Mensagem do sistema'
+                  infos:
+                    type: 'array'
+                    description: 'Informações dos emails enviados'
+                  passageiros:
+                    type: 'array'
+                    $ref: '#/components/schemas/Passageiro'
+                    description: 'Passageiros que foram enviado o email'
+                  motoristas:
+                    type: 'array'
+                    $ref: '#/components/schemas/Motorista'
+                    description: 'Motoristas que foram enviado o email'
+        '500':
+          description: 'Server error'
+        default:
+          description: 'Unexpected error'
+  # Motorista
+  /motorista/{id_motorista}:
+    get:
+      tags:
+        - 'Motorista'
+      summary: 'Obter Motorista'
+      description: 'Obtem um motorista específico pelo seu Id'
+      parameters:
+        - name: id_motorista
+          in: path
+          required: true
+          description: 'Id do motorista solicitado'
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  motorista:
+                    description: 'Um Motorista'
+                    $ref: '#/components/schemas/Motorista'
+        '500':
+          description: 'Server error'
+        default:
+          description: 'Unexpected error'
+  /motoristas:
+    tags:
+      - 'Motorista'
+    summary: 'Obter Motoristas'
+    description: 'Obtem a lista de motoristas cadastrados no aplicativo'
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: array
+              properties:
+                motoristas:
+                  description: 'Uma lista de Motoristas'
+                  $ref: '#/components/schemas/Motorista'
+      '500':
+        description: 'Server error'
+      default:
+        description: 'Unexpected error'
+  /motorista/:
+    post:
+      tags:
+        - 'Motorista'
+      summary: 'Criar Motorista'
+      description: 'Cadastrar um novo usuário motorista'
+      requestBody:
+        required: true
+        description: 'Dados do novo motorista'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: 'string'
+                  description: 'Nome'
+                email:
+                  type: 'string'
+                  description: 'Email'
+                marketing:
+                  type: 'boolean'
+                  description: 'Receber email marketing'
+              required:
+                - name
+                - email
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  motorista:
+                    description: 'Um Motorista'
+                    $ref: '#/components/schemas/Motorista'
+        '500':
+          description: 'Server error'
+        default:
+          description: 'Unexpected error'
+  /motorista/{id_motorista}/viagem/{id_viagem}:
+    tags:
+      - 'Motorista'
+    summary: 'Aceitar Viagem'
+    description: 'Aceita uma viagem do sistema'
+    parameters:
+      - name: id_motorista
+        in: path
+        required: true
+        description: 'Id do motorista que aceitou a viagem'
+        schema:
+          type: string
+      - name: id_viagem
+        in: path
+        required: true
+        description: 'Id da viagem que o motorista vai aceitar'
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              valor:
+                type: 'number'
+                description: 'Valor da viagem que o motorista vai cobrar'
+            required:
+              - valor
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                msg:
+                  type: 'string'
+                  description: 'Mensagem do sistema'
+                info:
+                  type: 'string'
+                  description: 'Informações do email enviado'
+                viagem:
+                  type: 'object'
+                  $ref: '#/components/schemas/Viagem'
+                  description: 'Viagem aceita'
+      '500':
+        description: 'Server error'
+      default:
+        description: 'Unexpected error'
+  # Passageiros
+  /passageiro/{id_passageiro}:
+    get:
+      tags:
+        - 'Passageiro'
+      summary: 'Obter Passageiro'
+      description: 'Obtem um Passageiro específico pelo seu Id'
+      parameters:
+        - name: id_passageiro
+          in: path
+          required: true
+          description: 'Id do Passageiro solicitado'
+          schema:
+            type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  passageiro:
+                    description: 'Um Passageiro'
+                    $ref: '#/components/schemas/Passageiro'
+        '500':
+          description: 'Server error'
+        default:
+          description: 'Unexpected error'
+  /passageiros/:
+    tags:
+      - 'Passageiro'
+    summary: 'Obter Passageiros'
+    description: 'Obtem a lista de Passageiros cadastrados no aplicativo'
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: array
+              properties:
+                passageiros:
+                  description: 'Uma lista de Passageiros'
+                  $ref: '#/components/schemas/Passageiros'
+      '500':
+        description: 'Server error'
+      default:
+        description: 'Unexpected error'
+  /passageiro/:
+    post:
+      tags:
+        - 'Passageiro'
+      summary: 'Criar Passageiro'
+      description: 'Cadastrar um novo usuário Passageiro'
+      requestBody:
+        required: true
+        description: 'Dados do novo Passageiro'
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: 'string'
+                  description: 'Nome'
+                email:
+                  type: 'string'
+                  description: 'Email'
+                marketing:
+                  type: 'boolean'
+                  description: 'Receber email marketing'
+              required:
+                - name
+                - email
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  passageiro:
+                    description: 'Um Passageiro'
+                    $ref: '#/components/schemas/Passageiro'
+        '500':
+          description: 'Server error'
+        default:
+          description: 'Unexpected error'
+  /passageiro/{id_passageiro}/viagem:
+    tags:
+      - 'Passageiro'
+    summary: 'Solicitar Viagem'
+    description: 'Solicitar uma viagem ao sistema'
+    parameters:
+      - name: id_passageiro
+        in: path
+        required: true
+        description: 'Id do passageito que quer fazer a viagem'
+        schema:
+          type: string
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              origem:
+                type: 'string'
+                description: 'Origem da viagem'
+              destino:
+                type: 'string'
+                description: 'Destino da viagem'
+            required:
+              - origem
+              - destino
+    responses:
+      '200':
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                msg:
+                  type: 'string'
+                  description: 'Mensagem do sistema'
+                infos:
+                  type: 'array'
+                  description: 'Informações dos emails enviados'
+                viagem:
+                  type: 'object'
+                  $ref: '#/components/schemas/Viagem'
+                  description: 'Viagem gerada no sistema'
+                motoristas:
+                  type: 'array'
+                  $ref: '#/components/schemas/Motorista'
+                  description: 'Motoristas que receberam o email'
+      '500':
+        description: 'Server error'
+      default:
+        description: 'Unexpected error'
+components:
+  schemas:
+    Motorista:
+      type: 'object'
+      properties:
+        id:
+          type: 'string'
+          description: 'id'
+        name:
+          type: 'string'
+          description: 'Nome'
+        email:
+          type: 'string'
+          description: 'Email'
+        marketing:
+          type: 'boolean'
+          description: 'Receber email marketing'
+      xml:
+        name: 'Motorista'
+    Passageiro:
+      type: 'object'
+      properties:
+        id:
+          type: 'string'
+          description: 'id'
+        name:
+          type: 'string'
+          description: 'Nome'
+        email:
+          type: 'string'
+          description: 'Email'
+        marketing:
+          type: 'boolean'
+          description: 'Receber email marketing'
+      xml:
+        name: 'Passageiro'
+    Viagem:
+      type: 'object'
+      properties:
+        id:
+          type: 'string'
+          description: 'id'
+        origem:
+          type: 'string'
+          description: 'Origem da viagem'
+        destino:
+          type: 'string'
+          description: 'Destino da viagem'
+        passageiro:
+          $ref: '#/components/schemas/Passageiro'
+        motorista:
+          $ref: '#/components/schemas/Motorista'
+        valor:
+          type: 'number'
+          description: 'Valor da viagem'
+        xml:
+          name: 'Viagem'
