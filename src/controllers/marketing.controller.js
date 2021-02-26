@@ -35,7 +35,6 @@ router.post('/marketing', async (req, res) => {
       email.to = usuarios[i].email;
       let info = await transporter.sendMail(email);
       infos.push(info.messageId);
-      console.log('Novo email: \n', email);
     }
 
     return res.status(201).send({

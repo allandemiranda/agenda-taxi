@@ -78,7 +78,6 @@ router.post('/passageiro/:id/viagem/', async (req, res) => {
       email.to = motoristas[i].email;
       let info = await transporter.sendMail(email);
       infos.push(info.messageId);
-      console.log('Novo email: \n', email);
     }
 
     return res.status(201).send({
