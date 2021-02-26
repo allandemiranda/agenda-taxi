@@ -10,7 +10,7 @@ Desenvolvido  por   [Allan de Miranda](https://github.com/allandemiranda)
 
 Desenvolva um projeto seguindo os requisitos do capítulo 2.
 
-Demais solicitações do projeto encontra-se no arquivo `projeto.docx` na raiz do projeto.
+Demais solicitações do projeto encontra-se no arquivo `Projeto.docx` na raiz do projeto.
 
 ## Inicializar
 
