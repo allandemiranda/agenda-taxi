@@ -2,7 +2,7 @@
 
 Seviço de gerenciamento de email do aplicativo Agenda Taxi
 
-Desenvolvido  por   [Allan de Miranda](https://github.com/allandemiranda)
+Desenvolvido  por   [Allan de Miranda](https://www.linkedin.com/in/allandemiranda/)
 
 25 de fevereiro de 2021 - Web II - IMD
 
