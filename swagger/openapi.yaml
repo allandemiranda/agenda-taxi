@@ -437,9 +437,9 @@ paths:
           description: 'Id do Passageiro solicitado'
           schema:
             type: 'string'
-      responses:
-      description: 'O Passageiro'
+      responses:      
         '200':
+          description: 'O Passageiro'
           content:
             application/json:
               schema:
