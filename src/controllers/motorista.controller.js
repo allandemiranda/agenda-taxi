@@ -23,6 +23,32 @@ router.get('/motorista/:id', async (req, res) => {
   }
 });
 
+router.put('/motorista/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nome, email, marketing } = req.body;
+  try {
+    let motorista = await Motorista.findById(id);
+
+    if (nome) {
+      motorista.nome = nome;
+    }
+
+    if (email) {
+      motorista.email = email;
+    }
+
+    if (marketing) {
+      motorista.marketing = marketing;
+    }
+
+    motorista = await motorista.save();
+
+    return res.status(201).send({ motorista });
+  } catch (err) {
+    return res.status(500).send({ error: err.message });
+  }
+});
+
 router.post('/motorista/', async (req, res) => {
   const { nome, email, marketing } = req.body;
   try {

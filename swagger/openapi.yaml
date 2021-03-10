@@ -119,6 +119,49 @@ paths:
           description: 'Server error'
         default:
           description: 'Unexpected error'
+    put:
+      tags:
+        - 'Motorista'
+      summary: 'Editar Motorista'
+      description: 'Editar um motorista específico pelo seu Id'
+      parameters:
+        - name: id_motorista
+          in: path
+          required: true
+          description: 'Id do motorista solicitado'
+          schema:
+            type: 'string'
+      requestBody:
+        required: false
+        description: 'Dados a ser aditados do motorista'
+        content:
+          application/json:
+            schema:
+              type: 'object'
+              properties:
+                name:
+                  type: 'string'
+                  description: 'Nome'
+                email:
+                  type: 'string'
+                  description: 'Email'
+                marketing:
+                  type: 'boolean'
+                  description: 'Receber email marketing'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  motorista:
+                    description: 'Um Motorista'
+                    $ref: '#/components/schemas/Motorista'
+        '500':
+          description: 'Server error'
+        default:
+          description: 'Unexpected error'
   /motoristas:
     get:
       tags:
