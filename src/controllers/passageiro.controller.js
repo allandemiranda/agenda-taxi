@@ -24,26 +24,38 @@ router.get('/passageiro/:id', async (req, res) => {
   }
 });
 
+router.delete('/passageiro/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const passageiro = await Passageiro.findById(id);
+    if (!passageiro) {
+      return res.status(400).send({ error: 'Passageiro não existente' });
+    }
+    await passageiro.delete();
+    return res.status(200).send();
+  } catch (err) {
+    return res.status(500).send({ error: err.message });
+  }
+});
+
 router.put('/passageiro/:id', async (req, res) => {
   const { id } = req.params;
   const { nome, email, marketing } = req.body;
   try {
     let passageiro = await Passageiro.findById(id);
-
-    if (nome) {
+    if (passageiro) {
+      return res.status(400).send({ error: 'Passageiro não existente' });
+    }
+    if (typeof nome === 'string') {
       passageiro.nome = nome;
     }
-
-    if (email) {
+    if (typeof email === 'string') {
       passageiro.email = email;
     }
-
-    if (marketing !== passageiro.marketing) {
+    if (typeof marketing === 'boolean') {
       passageiro.marketing = marketing;
     }
-
     passageiro = await passageiro.save();
-
     return res.status(201).send({ passageiro });
   } catch (err) {
     return res.status(500).send({ error: err.message });

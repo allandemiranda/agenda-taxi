@@ -31,12 +31,11 @@ router.delete('/motorista/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const motorista = await Motorista.findById(id);
-    if (motorista) {
-      await motorista.delete();
-      return res.status(200).send();
-    } else {
+    if (!motorista) {
       return res.status(400).send({ error: 'Motorista não existe' });
     }
+    await motorista.delete();
+    return res.status(200).send();
   } catch (err) {
     return res.status(500).send({ error: err.message });
   }
@@ -47,6 +46,9 @@ router.put('/motorista/:id', async (req, res) => {
   const { nome, email, marketing } = req.body;
   try {
     let motorista = await Motorista.findById(id);
+    if (motorista) {
+      return res.status(400).send({ error: 'Motorista não existente' });
+    }
     if (typeof nome === 'string') {
       motorista.nome = nome;
     }

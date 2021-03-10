@@ -144,7 +144,7 @@ paths:
                   motorista:                    
                     $ref: '#/components/schemas/Motorista'
         '400':
-          description: 'Motorista não existe'
+          description: 'Dados de entrada não existe'
           content:
             application/json:
               schema:
@@ -205,6 +205,16 @@ paths:
                 properties:
                   motorista:                    
                     $ref: '#/components/schemas/Motorista'
+        '400':
+          description: 'Dados de entrada não existe'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         '500':
           description: 'Server error'
           content:
@@ -221,7 +231,7 @@ paths:
       tags:
         - 'Motorista'
       summary: 'Deletar Motorista'
-      description: 'deletar um motorista específico pelo seu Id'
+      description: 'Deletar um motorista específico pelo seu Id'
       parameters:
         - name: id_motorista
           in: path
@@ -233,7 +243,7 @@ paths:
         '200':
           description: 'Motorista deletado'          
         '400':
-          description: 'Motorista não existe'
+          description: 'Dados de entrada não existe'
           content:
             application/json:
               schema:
@@ -428,6 +438,7 @@ paths:
           schema:
             type: 'string'
       responses:
+      description: 'O Passageiro'
         '200':
           content:
             application/json:
@@ -437,8 +448,26 @@ paths:
                   passageiro:
                     description: 'Um Passageiro'
                     $ref: '#/components/schemas/Passageiro'
+        '400':
+          description: 'Dados de entrada não existe'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         '500':
           description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         default:
           description: 'Unexpected error'
     put:
@@ -463,8 +492,63 @@ paths:
                   passageiro:
                     description: 'Um Passageiro'
                     $ref: '#/components/schemas/Passageiro'
+        '400':
+          description: 'Dados de entrada não existe'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         '500':
           description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
+        default:
+          description: 'Unexpected error'
+    delete:
+      tags:
+        - 'Passageiro'
+      summary: 'Deletar Passageiro'
+      description: 'Deletar um passageiro específico pelo seu Id'
+      parameters:
+        - name: id_passageiro
+          in: path
+          required: true
+          description: 'Id do passageiro solicitado'
+          schema:
+            type: 'string'
+      responses:
+        '200':
+          description: 'Passageiro deletado'          
+        '400':
+          description: 'Dados de entrada não existe'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
+        '500':
+          description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         default:
           description: 'Unexpected error'
   /passageiros/:
@@ -475,6 +559,7 @@ paths:
       description: 'Obtem a lista de Passageiros cadastrados no aplicativo'
       responses:
         '200':
+          description: 'Lista de passageiros'
           content:
             application/json:
               schema:
@@ -487,6 +572,14 @@ paths:
                       $ref: '#/components/schemas/Passageiro'
         '500':
           description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         default:
           description: 'Unexpected error'
   /passageiro/:
@@ -517,6 +610,7 @@ paths:
                 - email
       responses:
         '201':
+          description: 'O Passageiro'
           content:
             application/json:
               schema:
@@ -525,8 +619,26 @@ paths:
                   passageiro:
                     description: 'Um Passageiro'
                     $ref: '#/components/schemas/Passageiro'
+        '400':
+          description: 'Dados de entrada errado'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         '500':
           description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         default:
           description: 'Unexpected error'
   /passageiro/{id_passageiro}/viagem:
@@ -581,8 +693,26 @@ paths:
                     items:
                       $ref: '#/components/schemas/Motorista'
                     description: 'Motoristas que receberam o email'
+        '400':
+          description: 'Dados de entrada incorreto'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         '500':
           description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         default:
           description: 'Unexpected error'
 components:
