@@ -71,6 +71,8 @@ paths:
                   error:
                     type: 'string'
                     description: 'Descrição do erro'
+        default:
+          description: 'Unexpected error'
   # Marketing
   /marketing:
     post:
@@ -82,6 +84,7 @@ paths:
         receber informaões do marketing'
       responses:
         '200':
+          description: 'Email Marketing gerado'
           content:
             application/json:
               schema:
@@ -106,6 +109,14 @@ paths:
                     description: 'Motoristas que foram enviado o email'
         '500':
           description: 'Server error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         default:
           description: 'Unexpected error'
   # Motorista
