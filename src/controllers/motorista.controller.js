@@ -17,7 +17,11 @@ router.get('/motorista/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const motorista = await Motorista.findById(id);
-    return res.status(200).send({ motorista });
+    if (motorista) {
+      return res.status(200).send({ motorista });
+    } else {
+      return res.status(400).send({ error: 'Motorista não existe' });
+    }
   } catch (err) {
     return res.status(500).send({ error: err.message });
   }
@@ -27,8 +31,12 @@ router.delete('/motorista/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const motorista = await Motorista.findById(id);
-    await motorista.delete();
-    return res.status(200).send();
+    if (motorista) {
+      await motorista.delete();
+      return res.status(200).send();
+    } else {
+      return res.status(400).send({ error: 'Motorista não existe' });
+    }
   } catch (err) {
     return res.status(500).send({ error: err.message });
   }
@@ -39,21 +47,16 @@ router.put('/motorista/:id', async (req, res) => {
   const { nome, email, marketing } = req.body;
   try {
     let motorista = await Motorista.findById(id);
-
-    if (nome) {
+    if (typeof nome === 'string') {
       motorista.nome = nome;
     }
-
-    if (email) {
+    if (typeof email === 'string') {
       motorista.email = email;
     }
-
-    if (marketing) {
+    if (typeof marketing === 'boolean') {
       motorista.marketing = marketing;
     }
-
     motorista = await motorista.save();
-
     return res.status(201).send({ motorista });
   } catch (err) {
     return res.status(500).send({ error: err.message });
@@ -66,8 +69,15 @@ router.post('/motorista/', async (req, res) => {
     if (await Motorista.findOne({ email })) {
       return res.status(400).send({ error: 'Motorista existente' });
     }
-    const motorista = await Motorista.create({ nome, email, marketing });
-    return res.status(201).send({ motorista });
+    if (typeof nome === 'string') {
+      if (typeof email === 'string') {
+        if (typeof marketing === 'boolean') {
+          const motorista = await Motorista.create({ nome, email, marketing });
+          return res.status(201).send({ motorista });
+        }
+      }
+    }
+    return res.status(400).send({ error: 'Dados incorreto' });
   } catch (err) {
     return res.status(500).send({ error: err.message });
   }
