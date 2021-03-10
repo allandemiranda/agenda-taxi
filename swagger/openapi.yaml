@@ -323,6 +323,32 @@ paths:
           description: 'Server error'
         default:
           description: 'Unexpected error'
+    put:
+      tags:
+        - 'Passageiro'
+      summary: 'Editar Passageiro'
+      description: 'Editar um Passageiro específico pelo seu Id'
+      parameters:
+        - name: id_passageiro
+          in: path
+          required: true
+          description: 'Id do Passageiro solicitado'
+          schema:
+            type: 'string'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  passageiro:
+                    description: 'Um Passageiro'
+                    $ref: '#/components/schemas/Passageiro'
+        '500':
+          description: 'Server error'
+        default:
+          description: 'Unexpected error'
   /passageiros/:
     get:
       tags:
