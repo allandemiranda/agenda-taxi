@@ -162,6 +162,25 @@ paths:
           description: 'Server error'
         default:
           description: 'Unexpected error'
+    delete:
+      tags:
+        - 'Motorista'
+      summary: 'Deletar Motorista'
+      description: 'deletar um motorista específico pelo seu Id'
+      parameters:
+        - name: id_motorista
+          in: path
+          required: true
+          description: 'Id do motorista solicitado'
+          schema:
+            type: 'string'
+      responses:
+        '200':
+          description: 'Motorista deletado'                    
+        '500':
+          description: 'Server error'
+        default:
+          description: 'Unexpected error'
   /motoristas:
     get:
       tags:

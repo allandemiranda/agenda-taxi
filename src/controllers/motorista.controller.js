@@ -23,6 +23,17 @@ router.get('/motorista/:id', async (req, res) => {
   }
 });
 
+router.delete('/motorista/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const motorista = await Motorista.findById(id);
+    await motorista.delete();
+    return res.status(200).send();
+  } catch (err) {
+    return res.status(500).send({ error: err.message });
+  }
+});
+
 router.put('/motorista/:id', async (req, res) => {
   const { id } = req.params;
   const { nome, email, marketing } = req.body;
