@@ -31,7 +31,8 @@ paths:
           schema:
             type: 'string'
       responses:
-        '200':
+        '201':
+          description: 'Pagamento confirmado'
           content:
             application/json:
               schema:
@@ -50,10 +51,26 @@ paths:
                   motorista:
                     description: 'Motorista que foi enviado o email'
                     $ref: '#/components/schemas/Motorista'
+        '400':
+          description: 'Dados de entrada não existe'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
         '500':
           description: 'Server error'
-        default:
-          description: 'Unexpected error'
+          content:
+            application/json:
+              schema:
+                type: 'object'
+                properties:
+                  error:
+                    type: 'string'
+                    description: 'Descrição do erro'
   # Marketing
   /marketing:
     post:
