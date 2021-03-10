@@ -1,4 +1,5 @@
 const mongoose = require('../services/mongoDB.service');
+const mongoose_delete = require('mongoose-delete');
 const Schema = mongoose.Schema;
 
 const PassageiroSchema = new Schema({
@@ -18,6 +19,8 @@ const PassageiroSchema = new Schema({
     require: true,
   },
 });
+
+PassageiroSchema.plugin(mongoose_delete);
 
 const Passageiro = mongoose.model('Passageiro', PassageiroSchema);
 
