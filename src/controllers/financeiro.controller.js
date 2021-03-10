@@ -52,9 +52,6 @@ router.post('/financeiro/:id', async (req, res) => {
     let infoMotorista = await transporter.sendMail(emailMotorista);
     let infoPassageiro = await transporter.sendMail(emailPassageiro);
 
-    console.log('Novo email: \n', emailMotorista);
-    console.log('Novo email: \n', emailPassageiro);
-
     return res.status(201).send({
       msg:
         'Email enviado ao passageiro ' +
