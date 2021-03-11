@@ -18,6 +18,9 @@ router.get('/passageiro/:id', async (req, res) => {
   const { id } = req.params;
   try {
     const passageiro = await Passageiro.findById(id);
+    if (!passageiro) {
+      return res.status(400).send({ error: 'Passageiro não existente' });
+    }
     return res.status(200).send({ passageiro });
   } catch (err) {
     return res.status(500).send({ error: err.message });
@@ -43,7 +46,7 @@ router.put('/passageiro/:id', async (req, res) => {
   const { nome, email, marketing } = req.body;
   try {
     let passageiro = await Passageiro.findById(id);
-    if (passageiro) {
+    if (!passageiro) {
       return res.status(400).send({ error: 'Passageiro não existente' });
     }
     if (typeof nome === 'string') {
@@ -81,7 +84,7 @@ router.post('/passageiro/:id/viagem/', async (req, res) => {
   try {
     const passageiro = await Passageiro.findById(id);
     if (!passageiro) {
-      return res.status(400).send({ error: 'Passageiro não existe' });
+      return res.status(400).send({ error: 'Passageiro deletado' });
     }
 
     const viagem = await Viagem.create({ origem, destino, passageiro });
