@@ -13,6 +13,9 @@ router.post('/financeiro/:id', async (req, res) => {
     if (!viagem.motorista) {
       return res.status(400).send({ error: 'Viagem sem motorista' });
     }
+    if (!viagem.passageiro) {
+      return res.status(400).send({ error: 'Passageiro deletado' });
+    }
 
     const emailMotorista = {
       from: process.env.EMAIL_FINANCEIRO,
