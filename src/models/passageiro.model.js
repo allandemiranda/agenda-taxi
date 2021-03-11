@@ -20,7 +20,7 @@ const PassageiroSchema = new Schema({
   },
 });
 
-PassageiroSchema.plugin(mongoose_delete);
+PassageiroSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 
 const Passageiro = mongoose.model('Passageiro', PassageiroSchema);
 

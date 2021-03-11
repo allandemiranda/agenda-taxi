@@ -20,7 +20,7 @@ const MotoristaSchema = new Schema({
   },
 });
 
-MotoristaSchema.plugin(mongoose_delete);
+MotoristaSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 
 const Motorista = mongoose.model('Motorista', MotoristaSchema);
 
