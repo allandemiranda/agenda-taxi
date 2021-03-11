@@ -46,7 +46,7 @@ router.put('/motorista/:id', async (req, res) => {
   const { nome, email, marketing } = req.body;
   try {
     let motorista = await Motorista.findById(id);
-    if (motorista) {
+    if (!motorista) {
       return res.status(400).send({ error: 'Motorista não existente' });
     }
     if (typeof nome === 'string') {
@@ -96,6 +96,9 @@ router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
     var viagem = await Viagem.findById(idViagem);
     if (!viagem) {
       return res.status(400).send({ error: 'Viagem não existe' });
+    }
+    if (!viagem.passageiro) {
+      return res.status(400).send({ error: 'Passageiro não existe' });
     }
     viagem.valor = valor;
     viagem.motorista = motorista;
