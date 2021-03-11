@@ -85,3 +85,73 @@ Como financeiro do aplicativo, desejo informar ao passageiro do aplicativo a con
 Como marketing do aplicativo, desejo informar aos passageiros do aplicativo novidades, para que eles utilizem o aplicativo.
 
 Como marketing do aplicativo, desejo informar aos motoristas do aplicativo novidades, para que eles utilizem o aplicativo.
+
+## EndPoints
+
+Motorista
+
+```
+GET ​/motorista​/{id_motorista}
+Obter Motorista
+```
+```
+PUT ​/motorista​/{id_motorista}
+Editar Motorista
+```
+```
+DELETE ​/motorista​/{id_motorista}
+Deletar Motorista
+```
+```
+GET ​/motoristas
+Obter Motoristas
+```
+```
+POST ​/motorista​/
+Criar Motorista
+```
+```
+POST ​/motorista​/{id_motorista}​/viagem​/{id_viagem}
+Aceitar Viagem
+```
+
+Passageiro
+
+```
+GET ​/passageiro​/{id_passageiro}
+Obter Passageiro
+```
+```
+PUT ​/passageiro​/{id_passageiro}
+Editar Passageiro
+```
+```
+DELETE ​/passageiro​/{id_passageiro}
+Deletar Passageiro
+```
+```
+GET ​/passageiros​/
+Obter Passageiros
+```
+```
+POST ​/passageiro​/
+Criar Passageiro
+```
+```
+POST ​/passageiro​/{id_passageiro}​/viagem
+Solicitar Viagem
+```
+
+Financeiro
+
+```
+POST ​/financeiro​/{id_viagem}
+Financeiro Email
+```
+
+Marketing
+
+```
+POST ​/marketing
+Marketing Email
+```
