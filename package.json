@@ -1,6 +1,6 @@
 {
   "name": "agenda-taxi",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Projeto para disciplina de Desenvolvimento Web II",
   "main": "index.js",
   "scripts": {
