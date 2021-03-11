@@ -1,10 +1,26 @@
+![v2](https://img.shields.io/badge/version-v2.0.0-blue) 
+
+![Doc 100%](https://img.shields.io/badge/docs-100%25-brightgreen) ![MIT License](https://img.shields.io/badge/license-MIT-brightgreen) 
+
+![ExpressJS](https://img.shields.io/badge/ExpressJS-v4.17.1-green) ![Mongoose](https://img.shields.io/badge/Mongoose-v5.11.18-green) ![Nodemailer](https://img.shields.io/badge/Nodemailer-v6.4.18-green)
+
+![Eslint](https://img.shields.io/badge/Eslint-v7.20.0-green) ![Prettier](https://img.shields.io/badge/Prettier-v2.2.1-green)
+
+![Docker](https://shields.io/badge/-Docker-blue) ![Swagger](https://shields.io/badge/-Swagger-brightgreen)
+
 # Projeto WEB II - Agenda Taxi
 
-Seviço de gerenciamento de email do aplicativo Agenda Taxi
+Seviço de gerenciamento de email do aplicativo Agenda Taxi - V2
 
 Desenvolvido  por   [Allan de Miranda](https://www.linkedin.com/in/allandemiranda/)
 
 25 de fevereiro de 2021 - Web II - IMD
+
+Atualização da versão:
+
+- Novas Histórias de Usuários
+
+- Novos EndPoints
 
 ## Introdução
 
@@ -41,3 +57,31 @@ Com o contêiner taxi-docker rodando, consuma a plicação pela url ``http://loc
 ## Documentação
 
 Toda documentação está disponível na url ``http://localhost:8080`` do contêiner swagger-ui. 
+
+## Histórias de Usuários
+
+Como motorista particular, desejo me cadastrar no aplicativo, para receber propostas de corridas dos passageiros.
+
+Como motorista do aplicativo, desejo editar meu cadastro no aplicativo, para manter os dados atualizados.
+
+Como motorista do aplicativo, desejo me excluir do aplicativo, para não receber mais emails.
+
+Como motorista do aplicativo, desejo informar ao passageiro que aceitei a corrida, para ele poder saber da atualização do pedido dele.
+
+Como motorista do aplicativo, desejo informar ao financeiro do aplicativo que aceitei uma corrida, para ser gerado a cobrança ao passageiro do aplicativo.
+
+Como passageiro livre, desejo me cadastrar no aplicativo, para solicitar uma corrida a um motorista do aplicativo.
+
+Como passageiro do aplicativo, desejo editar meu cadastro no aplicativo, para manter os dados atualizados.
+
+Como passageiro do aplicativo, desejo me excluir do aplicativo, para não receber mais emails.
+
+Como passageiro do aplicativo, desejo informar minha viagem, para algum motorista aceitar.
+
+Como financeiro do aplicativo, desejo informar ao motorista do aplicativo o pagamento da corrida, para que ele possa fazer a corrida.
+
+Como financeiro do aplicativo, desejo informar ao passageiro do aplicativo a confirmação do pagamento da corrida, para que ele se programe para a viagem.
+
+Como marketing do aplicativo, desejo informar aos passageiros do aplicativo novidades, para que eles utilizem o aplicativo.
+
+Como marketing do aplicativo, desejo informar aos motoristas do aplicativo novidades, para que eles utilizem o aplicativo.
