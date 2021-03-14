@@ -9,10 +9,12 @@ mongoose.connect(process.env.MONGO_HOST, {
 
 mongoose.connection
   .once('open', function () {
-    console.log('MongoDB database connection established successfully');
+    process.env.TEST
+      ? null
+      : console.log('MongoDB database connection established successfully');
   })
   .on('error', function (error) {
-    console.log('Mongo Error is: ', error);
+    process.env.TEST ? null : console.log('Mongo Error is: ', error);
   });
 
 module.exports = mongoose;
