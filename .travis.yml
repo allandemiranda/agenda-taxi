@@ -6,4 +6,4 @@ install:
 deploy:
   provider: npm
   on:
-    all_branches: true
+    all_branches: false
