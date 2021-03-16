@@ -15,4 +15,6 @@ require('./controllers/financeiro.controller')(app);
 require('./controllers/marketing.controller')(app);
 require('./controllers/passageiro.controller')(app);
 
-app.listen(5000);
+var server = app.listen(5000);
+
+module.exports = { app, server };
