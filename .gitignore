@@ -3,3 +3,4 @@ package-lock.json
 yarn.lock
 .env
 __tests__/coverage
+globalConfig.json
