@@ -4,9 +4,9 @@
 
 ![ExpressJS](https://img.shields.io/badge/ExpressJS-v4.17.1-green) ![Mongoose](https://img.shields.io/badge/Mongoose-v5.11.18-green) ![Nodemailer](https://img.shields.io/badge/Nodemailer-v6.4.18-green)
 
-![Eslint](https://img.shields.io/badge/Eslint-v7.20.0-green) ![Prettier](https://img.shields.io/badge/Prettier-v2.2.1-green)
+![Eslint](https://img.shields.io/badge/Eslint-v7.20.0-green) ![Prettier](https://img.shields.io/badge/Prettier-v2.2.1-green) ![Prettier](https://camo.githubusercontent.com/48a41f43affa2e6253d6a48e0ee662ec53ce13c46442ac815e81d36b6e6b434d/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f636f64655f7374796c652d70726574746965722d6666363962342e737667)
 
-![Docker](https://shields.io/badge/-Docker-blue) ![Swagger](https://shields.io/badge/-Swagger-brightgreen)
+![Docker](https://shields.io/badge/-Docker-blue) ![Swagger](https://shields.io/badge/-Swagger-brightgreen) 
 
 # Projeto WEB II - Agenda Taxi
 
