@@ -42,17 +42,11 @@ Com o contêiner taxi-docker rodando, consuma a plicação pela url ``http://loc
 
 ### Note:
 
-- O arquivo `.env` necessita ser criado, para isso:
+1 - Solicite ao aluno desenvolvedor a chave de conexão com o banco de dados.
 
-1 - Já existe um arquivo exempro na raiz do projeto `.env.example`.
+2 - Adicione a chave ao campo `MONGO_HOST`.
 
-2 - Renomei o arquivo para `.env`.
-
-3 - Solicite ao aluno desenvolvedor a chave de conexão com o banco de dados.
-
-4 - Adicione a chave ao campo `MONGO_HOST`.
-
-5 - Se já estiver rodando o contêiner com a aplicação, reeinicie ela.
+3 - Se já estiver rodando o contêiner com a aplicação, reeinicie ela.
 
 ## Documentação
 
