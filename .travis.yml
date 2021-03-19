@@ -3,7 +3,3 @@ node_js:
   - 14
 install:
   - npm install
-deploy:
-  provider: npm
-  on:
-    branche: main
