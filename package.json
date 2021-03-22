@@ -4,7 +4,8 @@
   "description": "Projeto para disciplina de Desenvolvimento Web II",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js",
+    "start": "nodemon -r ./src/tracing.js ./src/index.js",
+    "development": "DEV=true nodemon -r ./src/tracing.js ./src/index.js",
     "test": "TEST=true jest --silent --runInBand --forceExit --detectOpenHandles"
   },
   "repository": {
@@ -22,16 +23,30 @@
   },
   "homepage": "https://github.com/allandemiranda/agenda-taxi#readme",
   "dependencies": {
+    "@opentelemetry/api": "^0.18.1",
+    "@opentelemetry/core": "^0.18.0",
+    "@opentelemetry/exporter-jaeger": "^0.18.0",
+    "@opentelemetry/metrics": "^0.18.0",
+    "@opentelemetry/node": "^0.18.0",
+    "@opentelemetry/plugin-express": "^0.14.0",
+    "@opentelemetry/plugin-http": "^0.18.0",
+    "@opentelemetry/plugin-https": "^0.18.0",
+    "@opentelemetry/plugin-mongodb": "^0.14.0",
+    "@opentelemetry/tracing": "^0.18.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-prom-bundle": "^6.3.4",
+    "express-prometheus-middleware": "^1.1.0",
     "jsconfig.json": "0.1.0-beta.3",
-    "mongoose": "^5.11.18",
+    "loglevel": "^1.7.1",
+    "mongoose": "^5.12.2",
     "mongoose-autopopulate": "^0.12.3",
     "mongoose-delete": "^0.5.3",
     "nodemailer": "^6.4.18",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "prometheus-api-metrics": "^3.2.0"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.2.3",

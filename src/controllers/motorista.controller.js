@@ -4,9 +4,14 @@ const router = express.Router();
 const Motorista = require('../models/motorista.model');
 const Viagem = require('../models/viagem.model');
 
+const opentelemetry = require('@opentelemetry/api');
+const tracer = opentelemetry.trace.getTracer('example-basic-tracer-node');
+
 router.get('/motoristas/', async (req, res) => {
+  const parentSpan = tracer.startSpan('main');
   try {
     const motoristas = await Motorista.find();
+    parentSpan.end();
     return res.status(200).send({ motoristas });
   } catch (err) {
     return res.status(500).send({ error: err.message });

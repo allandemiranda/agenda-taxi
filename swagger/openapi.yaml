@@ -5,7 +5,7 @@ info:
   contact:
     email: 'allandemiranda@gmail.com'
 servers:
-  - url: https://localhost:5000/v2
+  - url: http://localhost:5000/v2
 tags:
   - name: 'Motorista'
     description: 'Motorista do aplicativo'
