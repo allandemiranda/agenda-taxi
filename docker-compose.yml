@@ -1,7 +1,7 @@
 version: '3'
 services:
   api:
-    build: './src'
+    build: './'
     image: ufrn/agendataxi:latest
     container_name: api-taxi
     volumes:
