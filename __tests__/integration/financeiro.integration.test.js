@@ -37,7 +37,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a passageiro', async () => {
     await request(express.app)
-      .post('/v2/passageiro/')
+      .post('/v3/passageiro/')
       .send({ ...passageiro })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -52,7 +52,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a motorista', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ ...motorista })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -67,7 +67,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a viagem by fake id passageiro', async () => {
     await request(express.app)
-      .post('/v2/passageiro/' + '000000000000000000000000' + '/viagem/')
+      .post('/v3/passageiro/' + '000000000000000000000000' + '/viagem/')
       .send({ ...viagem })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -79,7 +79,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a viagem by wrong id passageiro', async () => {
     await request(express.app)
-      .post('/v2/passageiro/' + 'wrongID' + '/viagem/')
+      .post('/v3/passageiro/' + 'wrongID' + '/viagem/')
       .send({ ...viagem })
       .set('Accept', 'application/json')
       .expect(500);
@@ -89,7 +89,7 @@ describe('Integration Passageiro', () => {
     const email = process.env.EMAIL_APP;
     process.env.EMAIL_APP = '';
     await request(express.app)
-      .post('/v2/passageiro/' + passageiro._id + '/viagem/')
+      .post('/v3/passageiro/' + passageiro._id + '/viagem/')
       .send({ ...viagem })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -99,7 +99,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a viagem by id passageiro', async () => {
     await request(express.app)
-      .post('/v2/passageiro/' + passageiro._id + '/viagem/')
+      .post('/v3/passageiro/' + passageiro._id + '/viagem/')
       .send({ ...viagem })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -115,7 +115,7 @@ describe('Integration Passageiro', () => {
 
   it('should financeiro send a email confirming payment by id without motorista', async () => {
     await request(express.app)
-      .post('/v2/financeiro/' + viagem._id)
+      .post('/v3/financeiro/' + viagem._id)
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -129,7 +129,7 @@ describe('Integration Passageiro', () => {
     const email = process.env.EMAIL_APP;
     process.env.EMAIL_APP = '';
     await request(express.app)
-      .post('/v2/motorista/' + motorista._id + '/viagem/' + viagem._id)
+      .post('/v3/motorista/' + motorista._id + '/viagem/' + viagem._id)
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -140,7 +140,7 @@ describe('Integration Passageiro', () => {
   it('should acept a viagem by id motorista and fake viagem', async () => {
     await request(express.app)
       .post(
-        '/v2/motorista/' +
+        '/v3/motorista/' +
           motorista._id +
           '/viagem/' +
           '000000000000000000000000',
@@ -157,7 +157,7 @@ describe('Integration Passageiro', () => {
   it('should acept a viagem by id fake motorista and viagem', async () => {
     await request(express.app)
       .post(
-        '/v2/motorista/' + '000000000000000000000000' + '/viagem/' + viagem._id,
+        '/v3/motorista/' + '000000000000000000000000' + '/viagem/' + viagem._id,
       )
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
@@ -170,7 +170,7 @@ describe('Integration Passageiro', () => {
 
   it('should acept a viagem by id motorista and viagem', async () => {
     await request(express.app)
-      .post('/v2/motorista/' + motorista._id + '/viagem/' + viagem._id)
+      .post('/v3/motorista/' + motorista._id + '/viagem/' + viagem._id)
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -196,7 +196,7 @@ describe('Integration Passageiro', () => {
 
   it('should financeiro send a email confirming payment by id viagem', async () => {
     await request(express.app)
-      .post('/v2/financeiro/' + viagem._id)
+      .post('/v3/financeiro/' + viagem._id)
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -222,7 +222,7 @@ describe('Integration Passageiro', () => {
     const email = process.env.EMAIL_FINANCEIRO;
     process.env.EMAIL_FINANCEIRO = '';
     await request(express.app)
-      .post('/v2/financeiro/' + viagem._id)
+      .post('/v3/financeiro/' + viagem._id)
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -232,7 +232,7 @@ describe('Integration Passageiro', () => {
 
   it('should financeiro send a email confirming payment by id wrong viagem id', async () => {
     await request(express.app)
-      .post('/v2/financeiro/' + 'wrongID')
+      .post('/v3/financeiro/' + 'wrongID')
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -241,7 +241,7 @@ describe('Integration Passageiro', () => {
 
   it('should financeiro send a email confirming payment by id fake viagem id', async () => {
     await request(express.app)
-      .post('/v2/financeiro/' + '000000000000000000000000')
+      .post('/v3/financeiro/' + '000000000000000000000000')
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -253,13 +253,13 @@ describe('Integration Passageiro', () => {
 
   it('should acept a viagem by id fake motorista and viagem without a passageiro', async () => {
     await request(express.app)
-      .delete('/v2/passageiro/' + passageiro._id)
+      .delete('/v3/passageiro/' + passageiro._id)
       .set('Accept', 'application/json')
       .expect('Content-Length', '0')
       .expect(200);
 
     await request(express.app)
-      .post('/v2/motorista/' + motorista._id + '/viagem/' + viagem._id)
+      .post('/v3/motorista/' + motorista._id + '/viagem/' + viagem._id)
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -271,7 +271,7 @@ describe('Integration Passageiro', () => {
 
   it('should financeiro send a email confirming payment by id deleted passageiro id', async () => {
     await request(express.app)
-      .post('/v2/financeiro/' + viagem._id)
+      .post('/v3/financeiro/' + viagem._id)
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -283,13 +283,13 @@ describe('Integration Passageiro', () => {
 
   it('should financeiro send a email confirming payment by id deleted motorista id', async () => {
     await request(express.app)
-      .delete('/v2/motorista/' + motorista._id)
+      .delete('/v3/motorista/' + motorista._id)
       .set('Accept', 'application/json')
       .expect('Content-Length', '0')
       .expect(200);
 
     await request(express.app)
-      .post('/v2/financeiro/' + viagem._id)
+      .post('/v3/financeiro/' + viagem._id)
       .send({ valor: 99.99 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)

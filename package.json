@@ -1,13 +1,12 @@
 {
   "name": "agenda-taxi",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Projeto para disciplina de Desenvolvimento Web II",
   "main": "index.js",
   "scripts": {
     "start": "nodemon -r ./src/tracing.js ./src/index.js",
     "dev": "DEV=true nodemon -r ./src/tracing.js ./src/index.js",
-    "test": "TEST=true jest --silent --runInBand --forceExit --detectOpenHandles",
-    "test-all": "TEST=true jest --runInBand"
+    "test": "TEST=true jest --silent --runInBand --forceExit --detectOpenHandles"
   },
   "repository": {
     "type": "git",

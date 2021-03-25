@@ -142,4 +142,4 @@ router.post('/passageiro/:id/viagem/', async (req, res) => {
   }
 });
 
-module.exports = app => app.use('/v2/', router);
+module.exports = app => app.use('/v3/', router);

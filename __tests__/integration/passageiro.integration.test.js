@@ -62,7 +62,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a passageiro', async () => {
     await request(express.app)
-      .post('/v2/passageiro/')
+      .post('/v3/passageiro/')
       .send({ ...bodyOne })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -77,7 +77,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a existent passageiro', async () => {
     await request(express.app)
-      .post('/v2/passageiro/')
+      .post('/v3/passageiro/')
       .send({ ...bodyOne })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -89,7 +89,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a wrong passageiro nome', async () => {
     await request(express.app)
-      .post('/v2/passageiro/')
+      .post('/v3/passageiro/')
       .send({ ...bodyWrongOne })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -101,7 +101,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a wrong passageiro email', async () => {
     await request(express.app)
-      .post('/v2/passageiro/')
+      .post('/v3/passageiro/')
       .send({ ...bodyWrongTwo })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -113,7 +113,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a wrong passageiro marketing', async () => {
     await request(express.app)
-      .post('/v2/passageiro/')
+      .post('/v3/passageiro/')
       .send({ ...bodyWrongThird })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -125,7 +125,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a wrong passageiro null', async () => {
     await request(express.app)
-      .post('/v2/passageiro/')
+      .post('/v3/passageiro/')
       .send({ ...bodyWrongNull })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -137,7 +137,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a wrong passageiro email fake', async () => {
     await request(express.app)
-      .post('/v2/passageiro/')
+      .post('/v3/passageiro/')
       .send({ email: { email: true } })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -146,7 +146,7 @@ describe('Integration Passageiro', () => {
 
   it('should show all passageiro', async () => {
     await request(express.app)
-      .get('/v2/passageiros/')
+      .get('/v3/passageiros/')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -157,7 +157,7 @@ describe('Integration Passageiro', () => {
 
   it('should show a passageiro by id', async () => {
     await request(express.app)
-      .get('/v2/passageiro/' + bodyOne._id)
+      .get('/v3/passageiro/' + bodyOne._id)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -170,7 +170,7 @@ describe('Integration Passageiro', () => {
 
   it('should show a passageiro by fake id', async () => {
     await request(express.app)
-      .get('/v2/passageiro/' + '000000000000000000000000')
+      .get('/v3/passageiro/' + '000000000000000000000000')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400)
@@ -181,7 +181,7 @@ describe('Integration Passageiro', () => {
 
   it('should show a passageiro by wrong id', async () => {
     await request(express.app)
-      .get('/v2/passageiro/' + 'wrongID')
+      .get('/v3/passageiro/' + 'wrongID')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(500);
@@ -189,7 +189,7 @@ describe('Integration Passageiro', () => {
 
   it('should edit a passageiro by fake id', async () => {
     await request(express.app)
-      .put('/v2/passageiro/' + '000000000000000000000000')
+      .put('/v3/passageiro/' + '000000000000000000000000')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400)
@@ -200,7 +200,7 @@ describe('Integration Passageiro', () => {
 
   it('should edit a passageiro by wrong id', async () => {
     await request(express.app)
-      .put('/v2/passageiro/' + 'wrongID')
+      .put('/v3/passageiro/' + 'wrongID')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(500);
@@ -208,7 +208,7 @@ describe('Integration Passageiro', () => {
 
   it('should edit a passageiro nome by id', async () => {
     await request(express.app)
-      .put('/v2/passageiro/' + bodyOne._id)
+      .put('/v3/passageiro/' + bodyOne._id)
       .send({ nome: bodyTwo.nome })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -223,7 +223,7 @@ describe('Integration Passageiro', () => {
 
   it('should edit a passageiro email by id', async () => {
     await request(express.app)
-      .put('/v2/passageiro/' + bodyOne._id)
+      .put('/v3/passageiro/' + bodyOne._id)
       .send({ email: bodyTwo.email })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -238,7 +238,7 @@ describe('Integration Passageiro', () => {
 
   it('should edit a passageiro marketing by id', async () => {
     await request(express.app)
-      .put('/v2/passageiro/' + bodyOne._id)
+      .put('/v3/passageiro/' + bodyOne._id)
       .send({ marketing: bodyTwo.marketing })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -253,7 +253,7 @@ describe('Integration Passageiro', () => {
 
   it('should edit a passageiro by id', async () => {
     await request(express.app)
-      .put('/v2/passageiro/' + bodyOne._id)
+      .put('/v3/passageiro/' + bodyOne._id)
       .send({ ...bodyThird })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -268,7 +268,7 @@ describe('Integration Passageiro', () => {
 
   it('should delete a passageiro by fake id', async () => {
     await request(express.app)
-      .delete('/v2/passageiro/' + '000000000000000000000000')
+      .delete('/v3/passageiro/' + '000000000000000000000000')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400)
@@ -279,7 +279,7 @@ describe('Integration Passageiro', () => {
 
   it('should delete a passageiro by wrong id', async () => {
     await request(express.app)
-      .delete('/v2/passageiro/' + 'wrongID')
+      .delete('/v3/passageiro/' + 'wrongID')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(500);
@@ -287,7 +287,7 @@ describe('Integration Passageiro', () => {
 
   it('should delete a passageiro by id', async () => {
     await request(express.app)
-      .delete('/v2/passageiro/' + bodyThird._id)
+      .delete('/v3/passageiro/' + bodyThird._id)
       .set('Accept', 'application/json')
       .expect('Content-Length', '0')
       .expect(200);

@@ -62,7 +62,7 @@ describe('Integration Motorista', () => {
 
   it('should create a motorista', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ ...bodyOne })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -77,7 +77,7 @@ describe('Integration Motorista', () => {
 
   it('should create a existent motorista', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ ...bodyOne })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -89,7 +89,7 @@ describe('Integration Motorista', () => {
 
   it('should create a wrong motorista nome', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ ...bodyWrongOne })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -101,7 +101,7 @@ describe('Integration Motorista', () => {
 
   it('should create a wrong motorista email', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ ...bodyWrongTwo })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -113,7 +113,7 @@ describe('Integration Motorista', () => {
 
   it('should create a wrong motorista marketing', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ ...bodyWrongThird })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -125,7 +125,7 @@ describe('Integration Motorista', () => {
 
   it('should create a wrong motorista null', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ ...bodyWrongNull })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -137,7 +137,7 @@ describe('Integration Motorista', () => {
 
   it('should create a wrong motorista email fake', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ email: { email: true } })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -146,7 +146,7 @@ describe('Integration Motorista', () => {
 
   it('should show all motorista', async () => {
     await request(express.app)
-      .get('/v2/motoristas/')
+      .get('/v3/motoristas/')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -157,7 +157,7 @@ describe('Integration Motorista', () => {
 
   it('should show a motorista by id', async () => {
     await request(express.app)
-      .get('/v2/motorista/' + bodyOne._id)
+      .get('/v3/motorista/' + bodyOne._id)
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
@@ -170,7 +170,7 @@ describe('Integration Motorista', () => {
 
   it('should show a motorista by fake id', async () => {
     await request(express.app)
-      .get('/v2/motorista/' + '000000000000000000000000')
+      .get('/v3/motorista/' + '000000000000000000000000')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400)
@@ -181,7 +181,7 @@ describe('Integration Motorista', () => {
 
   it('should show a motorista by wrong id', async () => {
     await request(express.app)
-      .get('/v2/motorista/' + 'wrongID')
+      .get('/v3/motorista/' + 'wrongID')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(500);
@@ -189,7 +189,7 @@ describe('Integration Motorista', () => {
 
   it('should edit a motorista by fake id', async () => {
     await request(express.app)
-      .put('/v2/motorista/' + '000000000000000000000000')
+      .put('/v3/motorista/' + '000000000000000000000000')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400)
@@ -200,7 +200,7 @@ describe('Integration Motorista', () => {
 
   it('should edit a motorista by wrong id', async () => {
     await request(express.app)
-      .put('/v2/motorista/' + 'wrongID')
+      .put('/v3/motorista/' + 'wrongID')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(500);
@@ -208,7 +208,7 @@ describe('Integration Motorista', () => {
 
   it('should edit a motorista nome by id', async () => {
     await request(express.app)
-      .put('/v2/motorista/' + bodyOne._id)
+      .put('/v3/motorista/' + bodyOne._id)
       .send({ nome: bodyTwo.nome })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -223,7 +223,7 @@ describe('Integration Motorista', () => {
 
   it('should edit a motorista email by id', async () => {
     await request(express.app)
-      .put('/v2/motorista/' + bodyOne._id)
+      .put('/v3/motorista/' + bodyOne._id)
       .send({ email: bodyTwo.email })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -238,7 +238,7 @@ describe('Integration Motorista', () => {
 
   it('should edit a motorista marketing by id', async () => {
     await request(express.app)
-      .put('/v2/motorista/' + bodyOne._id)
+      .put('/v3/motorista/' + bodyOne._id)
       .send({ marketing: bodyTwo.marketing })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -253,7 +253,7 @@ describe('Integration Motorista', () => {
 
   it('should edit a motorista by id', async () => {
     await request(express.app)
-      .put('/v2/motorista/' + bodyOne._id)
+      .put('/v3/motorista/' + bodyOne._id)
       .send({ ...bodyThird })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -268,7 +268,7 @@ describe('Integration Motorista', () => {
 
   it('should delete a motorista by fake id', async () => {
     await request(express.app)
-      .delete('/v2/motorista/' + '000000000000000000000000')
+      .delete('/v3/motorista/' + '000000000000000000000000')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(400)
@@ -279,7 +279,7 @@ describe('Integration Motorista', () => {
 
   it('should delete a motorista by wrong id', async () => {
     await request(express.app)
-      .delete('/v2/motorista/' + 'wrongID')
+      .delete('/v3/motorista/' + 'wrongID')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(500);
@@ -287,7 +287,7 @@ describe('Integration Motorista', () => {
 
   it('should delete a motorista by id', async () => {
     await request(express.app)
-      .delete('/v2/motorista/' + bodyThird._id)
+      .delete('/v3/motorista/' + bodyThird._id)
       .set('Accept', 'application/json')
       .expect('Content-Length', '0')
       .expect(200);

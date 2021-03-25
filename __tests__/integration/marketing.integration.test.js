@@ -38,7 +38,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a passageiro', async () => {
     await request(express.app)
-      .post('/v2/passageiro/')
+      .post('/v3/passageiro/')
       .send({ ...bodyOne })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -53,7 +53,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a motorista', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ ...bodyTwo })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -68,7 +68,7 @@ describe('Integration Passageiro', () => {
 
   it('should create a other motorista', async () => {
     await request(express.app)
-      .post('/v2/motorista/')
+      .post('/v3/motorista/')
       .send({ ...bodyThird })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -83,7 +83,7 @@ describe('Integration Passageiro', () => {
 
   it('should send a maketing email', async () => {
     await request(express.app)
-      .post('/v2/marketing/')
+      .post('/v3/marketing/')
       .send({ ...bodyThird })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
@@ -100,7 +100,7 @@ describe('Integration Passageiro', () => {
   it('should send a maketing null email', async () => {
     process.env.EMAIL_MARKEING = '';
     await request(express.app)
-      .post('/v2/marketing/')
+      .post('/v3/marketing/')
       .send({ ...bodyThird })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
