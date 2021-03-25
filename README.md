@@ -1,6 +1,6 @@
 ![v2](https://img.shields.io/badge/version-v3.0.0-blue) 
 
-![Doc 100%](https://img.shields.io/badge/docs-100%25-brightgreen) ![MIT License](https://img.shields.io/badge/license-MIT-brightgreen) [![Build Status](https://travis-ci.com/allandemiranda/agenda-taxi.svg?branch=main)](https://travis-ci.com/allandemiranda/agenda-taxi)
+![Doc 100%](https://img.shields.io/badge/docs-100%25-brightgreen) ![MIT License](https://img.shields.io/badge/license-MIT-brightgreen) [![Build Status](https://travis-ci.com/allandemiranda/agenda-taxi.svg?branch=main)](https://travis-ci.com/allandemiranda/agenda-taxi) [![Node.js CI](https://github.com/allandemiranda/agenda-taxi/actions/workflows/node.js.yml/badge.svg)](https://github.com/allandemiranda/agenda-taxi/actions/workflows/node.js.yml)
 
 ![ExpressJS](https://img.shields.io/badge/ExpressJS-v4.17.1-green) ![Mongoose](https://img.shields.io/badge/Mongoose-v5.11.18-green) ![Nodemailer](https://img.shields.io/badge/Nodemailer-v6.4.18-green)
 
