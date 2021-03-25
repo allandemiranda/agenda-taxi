@@ -1,4 +1,4 @@
-![v2](https://img.shields.io/badge/version-v2.0.0-blue) 
+![v2](https://img.shields.io/badge/version-v3.0.0-blue) 
 
 ![Doc 100%](https://img.shields.io/badge/docs-100%25-brightgreen) ![MIT License](https://img.shields.io/badge/license-MIT-brightgreen) [![Build Status](https://travis-ci.com/allandemiranda/agenda-taxi.svg?branch=main)](https://travis-ci.com/allandemiranda/agenda-taxi)
 
@@ -10,7 +10,7 @@
 
 # Projeto WEB II - Agenda Taxi
 
-Seviço de gerenciamento de email do aplicativo Agenda Taxi - V2
+Seviço de gerenciamento de email do aplicativo Agenda Taxi - V3
 
 Desenvolvido  por   [Allan de Miranda](https://www.linkedin.com/in/allandemiranda/)
 
@@ -18,15 +18,17 @@ Desenvolvido  por   [Allan de Miranda](https://www.linkedin.com/in/allandemirand
 
 Atualização da versão:
 
-- Novas Histórias de Usuários
+- Telemetria
 
-- Novos EndPoints
+- Tracing para 86% das rotas
+
+- Testes em 100% das rotas
+
+- Correções de EndPoints
 
 ## Introdução
 
 Desenvolva um projeto seguindo os requisitos do capítulo 2.
-
-Demais solicitações do projeto encontra-se no arquivo `Projeto.docx` na raiz do projeto.
 
 ## Inicializar
 
