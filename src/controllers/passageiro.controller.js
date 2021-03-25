@@ -101,41 +101,41 @@ router.post('/passageiro/:id/viagem/', async (req, res) => {
 
     const motoristas = await Motorista.find();
 
-    // let testAccount = await nodemailer.createTestAccount();
-    // const transporter = nodemailer.createTransport({
-    //   host: 'smtp.ethereal.email',
-    //   port: 587,
-    //   secure: false,
-    //   auth: {
-    //     user: testAccount.user,
-    //     pass: testAccount.pass,
-    //   },
-    // });
+    let testAccount = await nodemailer.createTestAccount();
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    });
 
-    // let email = {
-    //   from: process.env.EMAIL_APP,
-    //   to: '',
-    //   subject: 'Nova viagem disponível',
-    //   text:
-    //     'Nova viagem disponível de ' +
-    //     viagem.origem +
-    //     ' para ' +
-    //     viagem.destino,
-    // };
+    let email = {
+      from: process.env.EMAIL_APP,
+      to: '',
+      subject: 'Nova viagem disponível',
+      text:
+        'Nova viagem disponível de ' +
+        viagem.origem +
+        ' para ' +
+        viagem.destino,
+    };
 
-    // let infos = [];
+    let infos = [];
 
-    // for (let i = 0; i < motoristas.length; ++i) {
-    //   email.to = motoristas[i].email;
-    //   let info = await transporter.sendMail(email);
-    //   infos.push(info.messageId);
-    // }
+    for (let i = 0; i < motoristas.length; ++i) {
+      email.to = motoristas[i].email;
+      let info = await transporter.sendMail(email);
+      infos.push(info.messageId);
+    }
 
     return res.status(201).send({
       msg: 'Email enviado aos motoristas !',
       motoristas,
       viagem,
-      // infos,
+      infos,
     });
   } catch (err) {
     return res.status(500).send({ error: err.message });
