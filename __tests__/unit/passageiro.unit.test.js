@@ -25,6 +25,14 @@ describe('Model Passageiro', () => {
     expect(newPassageiro.deleted).toBe(false);
   });
 
+  it('should find a passenger', async () => {
+    let passageiro = await Passageiro.findOne({ ...body });
+    expect(passageiro.nome).toBe(body.nome);
+    expect(passageiro.email).toBe(body.email);
+    expect(passageiro.marketing).toBe(body.marketing);
+    expect(passageiro.deleted).toBe(false);
+  });
+
   it('should edit a passenger', async () => {
     let passageiro = await Passageiro.findOne({ ...body });
     const newBody = {

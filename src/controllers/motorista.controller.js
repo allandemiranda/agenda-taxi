@@ -3,51 +3,69 @@ const nodemailer = require('nodemailer');
 const router = express.Router();
 const Motorista = require('../models/motorista.model');
 const Viagem = require('../models/viagem.model');
+const opentelemetry = require('@opentelemetry/api');
+const tracer = opentelemetry.trace.getTracer('example-basic-tracer-node');
 
 router.get('/motoristas/', async (req, res) => {
-  try {
-    const motoristas = await Motorista.find();
-    return res.status(200).send({ motoristas });
-  } catch (err) {
-    return res.status(500).send({ error: err.message });
-  }
+  const parentSpan = tracer.startSpan('/motoristas/');
+  const motoristas = await Motorista.find();
+  parentSpan.setStatus(200);
+  parentSpan.end();
+  return res.status(200).send({ motoristas });
 });
 
 router.get('/motorista/:id', async (req, res) => {
+  const parentSpan = tracer.startSpan('GET:/motorista/:id');
   const { id } = req.params;
   try {
     const motorista = await Motorista.findById(id);
     if (motorista) {
+      parentSpan.setStatus(200);
+      parentSpan.end();
       return res.status(200).send({ motorista });
     } else {
+      parentSpan.setStatus(400);
+      parentSpan.end();
       return res.status(400).send({ error: 'Motorista não existe' });
     }
   } catch (err) {
+    parentSpan.setStatus(500);
+    parentSpan.end();
     return res.status(500).send({ error: err.message });
   }
 });
 
 router.delete('/motorista/:id', async (req, res) => {
+  const parentSpan = tracer.startSpan('DELETE:/motorista/:id');
   const { id } = req.params;
   try {
     const motorista = await Motorista.findById(id);
     if (!motorista) {
+      parentSpan.setStatus(400);
+      parentSpan.end();
       return res.status(400).send({ error: 'Motorista não existe' });
     }
     await motorista.delete();
+    parentSpan.setStatus(200);
+    parentSpan.end();
     return res.status(200).send();
   } catch (err) {
+    parentSpan.setStatus(500);
+    parentSpan.end();
     return res.status(500).send({ error: err.message });
   }
 });
 
 router.put('/motorista/:id', async (req, res) => {
+  const parentSpan = tracer.startSpan('PUT:/motorista/:id');
   const { id } = req.params;
   const { nome, email, marketing } = req.body;
   try {
     let motorista = await Motorista.findById(id);
     if (!motorista) {
-      return res.status(400).send({ error: 'Motorista não existente' });
+      parentSpan.setStatus(400);
+      parentSpan.end();
+      return res.status(400).send({ error: 'Motorista não existe' });
     }
     if (typeof nome === 'string') {
       motorista.nome = nome;
@@ -59,45 +77,70 @@ router.put('/motorista/:id', async (req, res) => {
       motorista.marketing = marketing;
     }
     motorista = await motorista.save();
+    parentSpan.setStatus(201);
+    parentSpan.end();
     return res.status(201).send({ motorista });
   } catch (err) {
+    parentSpan.setStatus(500);
+    parentSpan.end();
     return res.status(500).send({ error: err.message });
   }
 });
 
 router.post('/motorista/', async (req, res) => {
+  const parentSpan = tracer.startSpan('POST:/motorista/');
   const { nome, email, marketing } = req.body;
   try {
     if (await Motorista.findOne({ email })) {
+      parentSpan.setStatus(400);
+      parentSpan.end();
       return res.status(400).send({ error: 'Motorista existente' });
     }
     if (typeof nome === 'string') {
       if (typeof email === 'string') {
         if (typeof marketing === 'boolean') {
           const motorista = await Motorista.create({ nome, email, marketing });
+          parentSpan.setStatus(201);
+          parentSpan.end();
           return res.status(201).send({ motorista });
         }
       }
     }
+    parentSpan.setStatus(400);
+    parentSpan.end();
     return res.status(400).send({ error: 'Dados incorreto' });
   } catch (err) {
+    parentSpan.setStatus(500);
+    parentSpan.end();
     return res.status(500).send({ error: err.message });
   }
 });
 
 router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
+  const parentSpan = tracer.startSpan(
+    'POST:/motorista/:idMotorista/viagem/:idViagem',
+  );
   const { idMotorista, idViagem } = req.params;
   const { valor } = req.body;
   try {
+    if (!process.env.EMAIL_APP) {
+      throw 'EMAIL_APP Null';
+    }
     const motorista = await Motorista.findById(idMotorista);
     if (!motorista) {
+      parentSpan.setStatus(400);
+      parentSpan.end();
       return res.status(400).send({ error: 'Motorista não existe' });
     }
     var viagem = await Viagem.findById(idViagem);
     if (!viagem) {
+      parentSpan.setStatus(400);
+      parentSpan.end();
       return res.status(400).send({ error: 'Viagem não existe' });
     }
     if (!viagem.passageiro) {
+      parentSpan.setStatus(400);
+      parentSpan.end();
       return res.status(400).send({ error: 'Passageiro não existe' });
     }
     viagem.valor = valor;
@@ -128,6 +171,8 @@ router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
 
     let info = await transporter.sendMail(email);
 
+    parentSpan.setStatus(201);
+    parentSpan.end();
     return res.status(201).send({
       msg:
         'Email enviado ao passageiro ' +
@@ -137,8 +182,10 @@ router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
       info: info.messageId,
     });
   } catch (err) {
+    parentSpan.setStatus(500);
+    parentSpan.end();
     return res.status(500).send({ error: err.message });
   }
 });
 
-module.exports = app => app.use('/v2/', router);
+module.exports = app => app.use('/v3/', router);

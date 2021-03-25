@@ -2,10 +2,16 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const router = express.Router();
 const Viagem = require('../models/viagem.model');
+const opentelemetry = require('@opentelemetry/api');
+const tracer = opentelemetry.trace.getTracer('example-basic-tracer-node');
 
 router.post('/financeiro/:id', async (req, res) => {
+  const parentSpan = tracer.startSpan('/financeiro/:id');
   const { id } = req.params;
   try {
+    if (!process.env.EMAIL_FINANCEIRO) {
+      throw 'EMAIL_FINANCEIRO Null';
+    }
     const viagem = await Viagem.findById(id);
     if (!viagem) {
       return res.status(400).send({ error: 'Viagem não existe' });
@@ -55,6 +61,8 @@ router.post('/financeiro/:id', async (req, res) => {
     let infoMotorista = await transporter.sendMail(emailMotorista);
     let infoPassageiro = await transporter.sendMail(emailPassageiro);
 
+    parentSpan.setStatus(201);
+    parentSpan.end();
     return res.status(201).send({
       msg:
         'Email enviado ao passageiro ' +
@@ -67,8 +75,10 @@ router.post('/financeiro/:id', async (req, res) => {
       motorista: viagem.motorista,
     });
   } catch (err) {
+    parentSpan.setStatus(500);
+    parentSpan.end();
     return res.status(500).send({ error: err.message });
   }
 });
 
-module.exports = app => app.use('/v2/', router);
+module.exports = app => app.use('/v3/', router);

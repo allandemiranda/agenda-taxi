@@ -3,7 +3,7 @@ services:
   api:
     build: './'
     image: ufrn/agendataxi:latest
-    container_name: taxi-docker
+    container_name: api-taxi
     volumes:
       - ./:/app
       - /app/node_modules

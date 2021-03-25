@@ -3,9 +3,15 @@ const nodemailer = require('nodemailer');
 const router = express.Router();
 const Passageiro = require('../models/passageiro.model');
 const Motorista = require('../models/motorista.model');
+const opentelemetry = require('@opentelemetry/api');
+const tracer = opentelemetry.trace.getTracer('example-basic-tracer-node');
 
 router.post('/marketing', async (req, res) => {
+  const parentSpan = tracer.startSpan('/marketing');
   try {
+    if (!process.env.EMAIL_MARKEING) {
+      throw 'EMAIL_MARKEING Null';
+    }
     const passageiros = await Passageiro.find({ marketing: true });
     const motoristas = await Motorista.find({ marketing: true });
 
@@ -37,6 +43,8 @@ router.post('/marketing', async (req, res) => {
       infos.push(info.messageId);
     }
 
+    parentSpan.setStatus(201);
+    parentSpan.end();
     return res.status(201).send({
       msg: 'Email enviado aos passageiros e aos motoristas !',
       passageiros,
@@ -44,8 +52,10 @@ router.post('/marketing', async (req, res) => {
       info: infos,
     });
   } catch (err) {
+    parentSpan.setStatus(500);
+    parentSpan.end();
     return res.status(500).send({ error: err.message });
   }
 });
 
-module.exports = app => app.use('/v2/', router);
+module.exports = app => app.use('/v3/', router);

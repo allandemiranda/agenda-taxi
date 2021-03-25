@@ -25,6 +25,14 @@ describe('Model Motorista', () => {
     expect(newmotorista.deleted).toBe(false);
   });
 
+  it('should find a motorista', async () => {
+    let motorista = await Motorista.findOne({ ...body });
+    expect(motorista.nome).toBe(body.nome);
+    expect(motorista.email).toBe(body.email);
+    expect(motorista.marketing).toBe(body.marketing);
+    expect(motorista.deleted).toBe(false);
+  });
+
   it('should edit a motorista', async () => {
     let motorista = await Motorista.findOne({ ...body });
     const newBody = {
