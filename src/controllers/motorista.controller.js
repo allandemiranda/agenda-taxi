@@ -9,13 +9,12 @@ const tracer = opentelemetry.trace.getTracer('example-basic-tracer-node');
 
 router.get('/motoristas/', async (req, res) => {
   const parentSpan = tracer.startSpan('main');
-  try {
-    const motoristas = await Motorista.find();
-    parentSpan.end();
-    return res.status(200).send({ motoristas });
-  } catch (err) {
-    return res.status(500).send({ error: err.message });
-  }
+
+  const motoristas = await Motorista.find();
+
+  parentSpan.end();
+
+  return res.status(200).send({ motoristas });
 });
 
 router.get('/motorista/:id', async (req, res) => {
@@ -52,7 +51,7 @@ router.put('/motorista/:id', async (req, res) => {
   try {
     let motorista = await Motorista.findById(id);
     if (!motorista) {
-      return res.status(400).send({ error: 'Motorista não existente' });
+      return res.status(400).send({ error: 'Motorista não existe' });
     }
     if (typeof nome === 'string') {
       motorista.nome = nome;
@@ -94,6 +93,9 @@ router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
   const { idMotorista, idViagem } = req.params;
   const { valor } = req.body;
   try {
+    if (!process.env.EMAIL_APP) {
+      throw 'EMAIL_APP Null';
+    }
     const motorista = await Motorista.findById(idMotorista);
     if (!motorista) {
       return res.status(400).send({ error: 'Motorista não existe' });
@@ -109,29 +111,29 @@ router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
     viagem.motorista = motorista;
     viagem = await viagem.save();
 
-    const email = {
-      from: process.env.EMAIL_APP,
-      to: viagem.passageiro.email + ', ' + process.env.EMAIL_FINANCEIRO,
-      subject: 'Viagem aceita',
-      text:
-        'Viagem aceita pelo motorista' +
-        viagem.motorista.nome +
-        '. Por favor, pagar o valor de R$' +
-        viagem.valor,
-    };
+    // const email = {
+    //   from: process.env.EMAIL_APP,
+    //   to: viagem.passageiro.email + ', ' + process.env.EMAIL_FINANCEIRO,
+    //   subject: 'Viagem aceita',
+    //   text:
+    //     'Viagem aceita pelo motorista' +
+    //     viagem.motorista.nome +
+    //     '. Por favor, pagar o valor de R$' +
+    //     viagem.valor,
+    // };
 
-    let testAccount = await nodemailer.createTestAccount();
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-      },
-    });
+    // let testAccount = await nodemailer.createTestAccount();
+    // const transporter = nodemailer.createTransport({
+    //   host: 'smtp.ethereal.email',
+    //   port: 587,
+    //   secure: false,
+    //   auth: {
+    //     user: testAccount.user,
+    //     pass: testAccount.pass,
+    //   },
+    // });
 
-    let info = await transporter.sendMail(email);
+    // let info = await transporter.sendMail(email);
 
     return res.status(201).send({
       msg:
@@ -139,7 +141,7 @@ router.post('/motorista/:idMotorista/viagem/:idViagem', async (req, res) => {
         viagem.passageiro.nome +
         ' e ao financeiro!',
       viagem,
-      info: info.messageId,
+      // info: info.messageId,
     });
   } catch (err) {
     return res.status(500).send({ error: err.message });

@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon -r ./src/tracing.js ./src/index.js",
-    "development": "DEV=true nodemon -r ./src/tracing.js ./src/index.js",
-    "test": "TEST=true jest --silent --runInBand --forceExit --detectOpenHandles"
+    "dev": "DEV=true nodemon -r ./src/tracing.js ./src/index.js",
+    "test": "TEST=true jest --silent --runInBand --forceExit --detectOpenHandles",
+    "test-all": "TEST=true jest --runInBand"
   },
   "repository": {
     "type": "git",
@@ -46,6 +47,7 @@
     "mongoose-delete": "^0.5.3",
     "nodemailer": "^6.4.18",
     "nodemon": "^2.0.7",
+    "prom-client": "^12.0.0",
     "prometheus-api-metrics": "^3.2.0"
   },
   "devDependencies": {

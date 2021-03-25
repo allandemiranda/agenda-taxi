@@ -6,6 +6,9 @@ const Viagem = require('../models/viagem.model');
 router.post('/financeiro/:id', async (req, res) => {
   const { id } = req.params;
   try {
+    if (!process.env.EMAIL_FINANCEIRO) {
+      throw 'EMAIL_FINANCEIRO Null';
+    }
     const viagem = await Viagem.findById(id);
     if (!viagem) {
       return res.status(400).send({ error: 'Viagem não existe' });
@@ -17,43 +20,43 @@ router.post('/financeiro/:id', async (req, res) => {
       return res.status(400).send({ error: 'Passageiro deletado' });
     }
 
-    const emailMotorista = {
-      from: process.env.EMAIL_FINANCEIRO,
-      to: viagem.motorista.email,
-      subject: 'Pagamento recebido',
-      text:
-        'Pagamento de R$' +
-        viagem.valor +
-        'para a viagem do passageiro ' +
-        viagem.passageiro.nome +
-        ' recebido!',
-    };
+    // const emailMotorista = {
+    //   from: process.env.EMAIL_FINANCEIRO,
+    //   to: viagem.motorista.email,
+    //   subject: 'Pagamento recebido',
+    //   text:
+    //     'Pagamento de R$' +
+    //     viagem.valor +
+    //     'para a viagem do passageiro ' +
+    //     viagem.passageiro.nome +
+    //     ' recebido!',
+    // };
 
-    const emailPassageiro = {
-      from: process.env.EMAIL_FINANCEIRO,
-      to: viagem.passageiro.email,
-      subject: 'Pagamento recebido',
-      text:
-        'Pagamento para a viagem de ' +
-        viagem.origem +
-        ' a ' +
-        viagem.destino +
-        ' recebido!',
-    };
+    // const emailPassageiro = {
+    //   from: process.env.EMAIL_FINANCEIRO,
+    //   to: viagem.passageiro.email,
+    //   subject: 'Pagamento recebido',
+    //   text:
+    //     'Pagamento para a viagem de ' +
+    //     viagem.origem +
+    //     ' a ' +
+    //     viagem.destino +
+    //     ' recebido!',
+    // };
 
-    let testAccount = await nodemailer.createTestAccount();
-    const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
-      },
-    });
+    // let testAccount = await nodemailer.createTestAccount();
+    // const transporter = nodemailer.createTransport({
+    //   host: 'smtp.ethereal.email',
+    //   port: 587,
+    //   secure: false,
+    //   auth: {
+    //     user: testAccount.user,
+    //     pass: testAccount.pass,
+    //   },
+    // });
 
-    let infoMotorista = await transporter.sendMail(emailMotorista);
-    let infoPassageiro = await transporter.sendMail(emailPassageiro);
+    // let infoMotorista = await transporter.sendMail(emailMotorista);
+    // let infoPassageiro = await transporter.sendMail(emailPassageiro);
 
     return res.status(201).send({
       msg:
@@ -62,7 +65,7 @@ router.post('/financeiro/:id', async (req, res) => {
         ' e ao motorista ' +
         viagem.motorista.nome +
         ' sobre a confirmação do pagamento !',
-      info: [infoPassageiro.messageId, infoMotorista.messageId],
+      // info: [infoPassageiro.messageId, infoMotorista.messageId],
       passageiro: viagem.passageiro,
       motorista: viagem.motorista,
     });

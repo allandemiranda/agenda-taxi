@@ -1,6 +1,7 @@
 require('dotenv').config({
   path: process.env.DEV ? 'dev.env' : '.env',
 });
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -11,18 +12,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.set('trust proxy', true);
-
-const apiMetrics = require('prometheus-api-metrics');
-app.use(apiMetrics());
-
-// const { countAllRequests } = require('./monitoring');
-// app.use(countAllRequests());
-
-// // include the express-prom-bundle to your code
-// const promBundle = require('express-prom-bundle');
-// // configure promBundle and give it flags
-// const promMetrics = promBundle({ includePath: true });
-// app.use(promMetrics);
 
 const promMid = require('express-prometheus-middleware');
 app.use(
